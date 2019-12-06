@@ -1,2 +1,3 @@
-# docker-jira-software
-centos 8 run user root
+# docker jira-software
+### centos 8 
+### run user : root
