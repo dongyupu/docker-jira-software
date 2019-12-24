@@ -7,7 +7,7 @@ ENV RUN_USER root
 ENV RUN_GROUP root
 ENV JIRA_HOME     /var/atlassian/jira
 ENV JIRA_INSTALL  /opt/atlassian/jira
-ENV JIRA_VERSION  8.6.0
+ENV JIRA_VERSION  8.5.0
 
 EXPOSE 8080
 WORKDIR $JIRA_HOME
@@ -23,10 +23,7 @@ RUN set -x \
     && mkdir -p "${JIRA_INSTALL}/conf/Catalina" \
     && curl -Ls "https://www.atlassian.com/software/jira/downloads/binary/atlassian-jira-core-${JIRA_VERSION}.tar.gz" | tar -xz --directory "${JIRA_INSTALL}" --strip-components=1 --no-same-owner \
     && chown -R $RUN_USER:$RUN_GROUP $JIRA_INSTALL \
-    && yum clean all \
-    && sed 's/2048/8192/g' < /opt/atlassian/jira/bin/setenv.sh > /opt/atlassian/jira/bin/setenv.sh \
-    && sed 's/384/4096/g' < /opt/atlassian/jira/bin/setenv.sh > /opt/atlassian/jira/bin/setenv.sh
-
+    && yum clean all
 
 #enterypoint
 CMD ["/opt/atlassian/jira/bin/start-jira.sh", "-fg"]
